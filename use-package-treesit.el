@@ -35,17 +35,17 @@
 ;; `:defer', `:mode', `:commands' or any of the other keywords that
 ;; cause deferred loading).
 ;;
-;; The `:treesit' keyword accepts at most one plist of arguments, with
-;; the same keys as in the `use-package-treesit-recipes` i.e `:lang`,
-;; `:url`, `:source-dir`, `:cc` or `:c++` (all others, including
-;; `:mode` are ignored). These can amend the settings in variable
+;; The `:treesit' keyword accepts arguments as a plist, with the same
+;; keys as in the `use-package-treesit-recipes` i.e `:lang`, `:url`,
+;; `:source-dir`, `:cc` or `:c++` (all others, including `:mode` are
+;; ignored). These can amend the settings in variable
 ;; `use-package-treesit-recipes' for the package being configured, or
-;; outright replace it if the package is not known in that variable.
+;; outright replace them in case the package is missing from that
+;; variable.
 ;;
 ;; Using the `:treesit' keyword in an `use-package' stanza, lazily
-;; prepares to download and compile the tree-sitter grammar out of a
-;; location taken from the `use-package-treesit-recipes`, using Emacs
-;; 30+'s built-in mechanisms. Specifically,
+;; prepares to download and compile the tree-sitter grammar, using
+;; Emacs 30+'s built-in mechanisms. Specifically,
 ;;
 ;; - at the time the `use-package' stanza is evaluated, and provided
 ;;   the target package is available (or equivalently, in the same
@@ -250,13 +250,13 @@
 (defun use-package-normalize/:treesit (name-symbol _keyword args)
   "`use-package' argument parser for the `:treesit' keyword.
 
-NAME-SYMBOL is the name of the “regular” (Emacs Lisp) being configured
-\(i.e. the first argument to the surrounding `use-package' stanza.) ARGS
-is the list of arguments (sexps) situated between `:treesit' and the
-next `use-package' keyword, or the end of the `use-package' stanza.
-There should be no more than one element in ARGS, and (if one is
-present) it should be a plist with the same keywords as an element of
-the variable `use-package-treesit-recipes'."
+NAME-SYMBOL is the name of the “regular” (Emacs Lisp) package being
+configured (i.e. the first argument to the surrounding `use-package'
+stanza.) ARGS is the list of arguments (sexps) situated between
+`:treesit' and the next `use-package' keyword, or the end of the
+`use-package' stanza. There should be no more than one such sexp,
+which (if present) should be a plist with the same keywords as
+an element of the variable `use-package-treesit-recipes'."
   (when (> (length args) 1)
     (error ":treesit arguments should be in a list"))
   (let* ((default-recipe (use-package-treesit--recipe-of-mode name-symbol))
@@ -281,7 +281,7 @@ as-is."
      `((use-package-treesit--prepare-auto-install ,@args-quoted)))))
 
 (defun use-package-treesit--prepare-auto-install (&rest recipe)
-  "Arrange for MODE's treesit grammar to be lazily installed.
+  "Arrange for a treesit grammar to be lazily installed.
 
 Add RECIPE into the variable `treesit-language-source-alist', where
 `use-package-treesit--maybe-install-lazy' will pick it up."
