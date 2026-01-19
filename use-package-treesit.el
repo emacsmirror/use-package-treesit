@@ -314,8 +314,10 @@ functions, so as to install the grammars before running them."
                  (head (cl-subseq use-package-keywords 0 before-pos))
                  (tail (nthcdr before-pos use-package-keywords)))
             (append head `(,use-package-treesit-keyword) tail))))
-  (advice-add 'treesit-ready-p :before #'use-package-treesit--maybe-install-lazy)
-  (advice-add 'treesit-parser-create :before #'use-package-treesit--maybe-install-lazy))
+  (advice-add 'treesit-ready-p :before
+              #'use-package-treesit--maybe-install-lazy)
+  (advice-add 'treesit-parser-create :before
+              #'use-package-treesit--maybe-install-lazy))
 
 (use-package-treesit--configure)
 
