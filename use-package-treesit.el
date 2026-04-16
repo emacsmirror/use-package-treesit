@@ -171,6 +171,9 @@
     (:lang perl
      :library perl-ts-mode
      :url "https://github.com/ganezdragon/tree-sitter-perl")
+    (:lang prisma
+     :library prisma-ts-mode
+     :url "https://github.com/victorhqc/tree-sitter-prisma")
     (:lang proto
      :library protobuf-ts-mode
      :url "https://github.com/mitchellh/tree-sitter-proto")
