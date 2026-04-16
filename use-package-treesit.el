@@ -6,7 +6,7 @@
 ;; Author: Dominique Quatravaux <dominique@quatravaux.org>
 ;; Keywords: lisp tree-sitter treesit auto automatic use-package
 ;; URL: https://github.com/domq/use-package-treesit.git
-;; Package-Version: 20260116.1
+;; Package-Version: 20260416.1
 ;; Package-Requires: ((emacs "30.0"))
 
 ;; This file is not part of GNU Emacs.
