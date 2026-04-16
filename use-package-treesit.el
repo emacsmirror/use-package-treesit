@@ -235,7 +235,61 @@
     (:lang yaml
      :library yaml-ts-mode
      :url "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))
-  "All the treesit languages that `use-package-treesit' can install automatically.")
+  "All the treesit languages that `use-package-treesit' can install automatically.
+
+You can add or alter elements in this list by passing a plist after
+`:treesit` in the `use-package' stanza with the same keywords (except
+`:library`), e.g.
+
+  (use-package foo :treesit
+                  (:lang foo-lang
+                   :url \"https://github.com/foo/foo-treesit\"))
+
+Each element of this list is a plist with the following keywords:
+
+  :library
+           The `features' symbol of the target package,
+           i.e. the `foo` in `(use-package foo :treesit)`
+
+  :lang
+           The target package's language symbol, i.e. the key that
+           should be created in variable
+           `treesit-language-source-alist' if none exists. (In the
+           opposite case, the existing entry is not modified and
+           therefore none of the other keywords described below have
+           any effect.)
+
+           The value for `:lang` must match the symbol that the
+           target package's Emacs Lisp code uses in its calls to
+           `treesit-parser-create', `treesit-language-available-p',
+           `treesit-ready-p' and so on.
+
+  :url
+           The URL to download the treesit grammar from, i.e. the
+           `URL` (first) field in the alist value to be created in
+           variable `treesit-language-source-alist'
+
+  :revision (optional)
+           The particular Git branch or tag to download the treesit
+           grammar from, i.e. the `REVISION` (second) field in the
+           alist value to be created in variable
+           `treesit-language-source-alist'
+
+  :source-dir (optional)
+           The subdirectory in the source control to build the grammar
+           from, i.e. the `SOURCE-DIR` (third) field in the alist
+           value to be created in variable
+           `treesit-language-source-alist'
+
+  :cc (optional)
+           The C compiler command to use, i.e. the `CC` (fourth) field
+           in the alist value to be created in variable
+           `treesit-language-source-alist'
+
+  :c++ (optional)
+           The C++ compiler command to use, i.e. the `C++` (fifth)
+           field in the alist value to be created in variable
+           `treesit-language-source-alist'")
 
 (defun use-package-treesit--recipe-of-library (library)
   "Find a match for LIBRARY in the variable `use-package-treesit-recipes'."
